@@ -1,17 +1,18 @@
 class Animal
-  attr_reader(:name, :gender, :date_of_admittance, :type, :customer_id, :id)
+  attr_accessor(:name, :gender, :date_of_admittance, :type, :customer_id, :id, :breed)
 
   define_method(:initialize) do |attributes|
     @name = attributes.fetch(:name)
     @gender = attributes.fetch(:gender)
     @date_of_admittance = attributes.fetch(:date_of_admittance)
     @type = attributes.fetch(:type)
+    @breed = attributes.fetch(:breed)
     @customer_id = attributes.fetch(:customer_id)
     @id = attributes.fetch(:id, nil)
   end
 
   define_method(:save) do
-    result = DB.exec("INSERT INTO animals (name, gender, date_of_admittance, type, customer_id) VALUES ('#{@name}', '#{@gender}', '#{@date_of_admittance}', '#{@type}', #{@customer_id}) RETURNING id;")
+    result = DB.exec("INSERT INTO animals (name, gender, date_of_admittance, type, breed, customer_id) VALUES ('#{@name}', '#{@gender}', '#{@date_of_admittance}', '#{@type}', '#{@breed}', #{@customer_id}) RETURNING id;")
     @id = result.first().fetch('id').to_i()
   end
 
@@ -23,22 +24,42 @@ class Animal
       gender = animal.fetch('gender')
       date_of_admittance = animal.fetch('date_of_admittance')
       type = animal.fetch('type')
+      breed = animal.fetch('breed')
       customer_id = animal.fetch('customer_id').to_i
       id = animal.fetch('id').to_i
-      animals.push(Animal.new(:name => name, :gender => gender, :date_of_admittance => date_of_admittance, :type => type, :customer_id => customer_id, :id => id))
+      animals.push(Animal.new(:name => name, :gender => gender, :date_of_admittance => date_of_admittance, :type => type, :breed => breed, :customer_id => customer_id, :id => id))
     end
     animals
   end
 
-  define_singleton_method(:find) do |id|
+  define_singleton_method(:find_adopted) do
+    DB.exec("SELECT * FROM animals WHERE customer_id > 0")
+  end
+
+  define_singleton_method(:find_by) do |attribute_name,attribute|
     all_animals = Animal.all()
     found_animal = nil
     all_animals.each() do |animal|
-      if animal.id().to_i == id.to_i
+      if eval("animal."+eval("attribute_name")).to_s == attribute.to_s
         found_animal = animal
       end
     end
     found_animal
+  end
+
+  define_singleton_method(:find_all_by) do |attribute_name,attribute|
+    all_animals = Animal.all()
+    found_animal = []
+    all_animals.each() do |animal|
+      if eval("animal."+eval("attribute_name")).to_s == attribute.to_s
+        found_animal.push(animal)
+      end
+    end
+    found_animal
+  end
+
+  define_singleton_method(:sort_date) do
+    DB.exec("SELECT * FROM animals ORDER BY date_of_admittance ASC;")
   end
 
   define_method(:==) do |other_animal|

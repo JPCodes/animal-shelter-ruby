@@ -1,0 +1,9 @@
+<h1>Animals Available for Adoption</h1>
+
+<ul>
+  <% @unadopted_animals.each do |animal| %>
+    <li><a href="animal/<%= animal.id() %>"></a>animal.name()</li>
+  <% end %>
+</ul>
+
+<a href="/">Home</a>
