@@ -1,0 +1,15 @@
+<h1>Yo, I am <%= @current_animal.name() %> </h1>
+
+<p>Gender: <%= @current_animal.gender() %></p>
+<p>Date: <%= @current_animal.date_of_admittance() %></p>
+<p>Type: <%= @current_animal.type() %></p>
+<p>Breed: <%= @current_animal.breed() %></p>
+
+<% if @current_animal.customer_id() == 0 %>
+  <p>Adopt Me!</p>
+  <% else %>
+  <p>I found a happy home</p>
+<% end %>
+
+<p><a href="/">Home</a></p>
+<p><a href="/unadopted_animals">Back</a></p>

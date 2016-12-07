@@ -40,5 +40,15 @@ class Customer
       end
       found_customers
     end
+    define_singleton_method(:find_by) do |attribute_name,attribute|
+      all_customers = Customer.all()
+      found_customers = nil
+      all_customers.each() do |customer|
+        if eval("customer."+eval("attribute_name")).to_s == attribute.to_s
+          found_customers = customer
+        end
+      end
+      found_customers
+    end
 
 end

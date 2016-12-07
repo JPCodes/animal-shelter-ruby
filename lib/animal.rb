@@ -32,6 +32,10 @@ class Animal
     animals
   end
 
+  define_method(:adopt) do |customer_id|
+    DB.exec("UPDATE animals SET customer_id = #{customer_id} WHERE id = #{@id}")
+  end
+
   define_singleton_method(:find_adopted) do
     DB.exec("SELECT * FROM animals WHERE customer_id > 0")
   end

@@ -1,0 +1,23 @@
+<h1>Hello <%= @customer.name() %> </h1>
+
+<p>Phone: <%= @customer.phone() %></p>
+<p>Breed Preference: <%= @customer.breed_preference() %></p>
+<p>Animal Type Preference: <%= @customer.animal_type_preference() %></p>
+
+
+<form action="/adopted" method="post">
+  <input type="hidden" id="customer_id" name="customer_id" value='<%= @customer.id()  %>'>
+  <label for="animal_id">Adopt an animal</label>
+  <select id='animal_id' name='animal_id' type='text'>
+    <% @unadopted_animals.each() do |animal| %>
+      <option value="<%= animal.id()%>"> <%= animal.name() +  ", " + animal.type() +  ", " + animal.gender() + ", " + animal.breed() + ", " + animal.date_of_admittance()%> </option>
+    <% end %>
+  </select>
+  <button type="submit">Adopt</button>
+</form>
+
+
+
+
+<p><a href="/">Home</a></p>
+<p><a href="/view_customers">Back</a></p>
