@@ -6,9 +6,7 @@
 <p>Breed: <%= @current_animal.breed() %></p>
 
 <% if @current_animal.customer_id() == 0 %>
-  <p>Adopt Me!</p>
-  <% else %>
-  <p>I found a happy home</p>
+  <p>Available for Adoption!</p>
 <% end %>
 
 <p><a href="/">Home</a></p>

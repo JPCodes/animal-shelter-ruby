@@ -1,0 +1,9 @@
+
+<h4>Happy owners with their pets</h4>
+<ul>
+  <% @adopted_animals.each do |animal|  %>
+  <li> <%= animal.fetch('name')  %> is happy with <%= current_customer = Customer.find_by('id', animal.fetch('customer_id')).name() %></li>
+  <% end %>
+</ul>
+
+<p><a href="/">Home</a></p>

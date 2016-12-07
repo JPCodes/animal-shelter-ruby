@@ -40,6 +40,7 @@ class Customer
       end
       found_customers
     end
+    
     define_singleton_method(:find_by) do |attribute_name,attribute|
       all_customers = Customer.all()
       found_customers = nil

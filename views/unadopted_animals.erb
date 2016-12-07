@@ -2,7 +2,7 @@
 
 <ul>
   <% @unadopted_animals.each do |animal| %>
-    <li><a href="animal/<%= animal.id() %>"><%= animal.name() + " " + animal.customer_id().to_s %></a></li>
+    <li><a href="animal/<%= animal.id() %>"><%= animal.name() %></a></li>
   <% end %>
 </ul>
 
