@@ -27,7 +27,7 @@ class Animal
       breed = animal.fetch('breed')
       customer_id = animal.fetch('customer_id').to_i
       id = animal.fetch('id').to_i
-      animals.push(Animal.new(:name => name, :gender => gender, :date_of_admittance => date_of_admittance, :type => type, :breed => breed, :customer_id => customer_id, :id => id))
+      animals.push(Animal.new({:name => name, :gender => gender, :date_of_admittance => date_of_admittance, :type => type, :breed => breed, :customer_id => customer_id, :id => id}))
     end
     animals
   end

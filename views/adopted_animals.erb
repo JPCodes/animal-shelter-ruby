@@ -2,7 +2,7 @@
 
 <ul>
   <% @adopted_animals.each do |animal| %>
-    <li><a href="animal/<%= animal.fetch('id') %>"><%= animal.fetch('name') + " " + animal.fetch('customer_id').to_s %></a></li>
+    <li><a href="animal/<%= animal.fetch('id') %>"><%= animal.fetch('name') %></a></li>
   <% end %>
 </ul>
 
